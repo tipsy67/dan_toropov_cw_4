@@ -26,7 +26,7 @@ class Vacancy:
         for salary in [left_obj, right_obj]:
             if salary[1] == 0:
                 salary[1] = salary[0]
-        return sum(left_obj)/2 < sum(right_obj)/2
+        return sum(left_obj) / 2 < sum(right_obj) / 2
 
     @property
     def search_str(self):
@@ -35,17 +35,18 @@ class Vacancy:
     @classmethod
     def get_salary(cls, data) -> list:
         if data is not None:
-            if data['currency'] is not None and data['currency'] !='RUR':
+            if data['currency'] is not None and data['currency'] != 'RUR':
                 rate = Currency.get_rate(data['currency'])
             else:
                 rate = 1
 
             return [
-                int(data['from']/rate) if data['from'] is not None else 0,
-                int(data['to']/rate) if data['to'] is not None else 0
+                int(data['from'] / rate) if data['from'] is not None else 0,
+                int(data['to'] / rate) if data['to'] is not None else 0
             ]
         else:
             return [0, 0]
+
     @classmethod
     def parse_from_hh(cls, json_text: dict) -> list:
         list_ = []
