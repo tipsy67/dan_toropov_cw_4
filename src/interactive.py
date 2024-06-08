@@ -113,7 +113,7 @@ class UserQuery:
 
         return filter_words
 
-    def input_salary_range(self) -> list[int]:
+    def input_salary_range(self) -> list[str]:
         salary_range = ['', '']
         while len(salary_range) != 2 or not salary_range[0].isdigit() or not salary_range[1].isdigit():
             salary_range = self.input_processing("Введите диапазон зарплат через дефис: ",

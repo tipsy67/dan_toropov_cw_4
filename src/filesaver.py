@@ -53,4 +53,3 @@ class JSONSaver(MainSaver):
 
     def delete_all(self):
         self.__file.truncate(0)
-

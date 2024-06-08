@@ -16,6 +16,7 @@ def filter_vacancies_by_words(list_vacancies, new_user_query):
 
     return new_list_vacancies
 
+
 def filter_vacancies_by_salary(list_vacancies, new_user_query):
     new_list_vacancies = []
     min_salary = int(new_user_query.salary_range[0])
@@ -26,6 +27,7 @@ def filter_vacancies_by_salary(list_vacancies, new_user_query):
             new_list_vacancies.append(vacancy)
 
     return new_list_vacancies
+
 
 def user_interaction() -> None:
     """
