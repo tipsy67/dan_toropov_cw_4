@@ -6,7 +6,7 @@ from src.vacancies import Vacancy
 
 
 @pytest.fixture
-def currency():
+def test_currency():
     currency = Currency('test_url')
     Currency.currency_rate = {
         "date": "2024-06-10",

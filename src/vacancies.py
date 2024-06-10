@@ -13,7 +13,7 @@ class Vacancy:
         self.description = kwargs.get('description')
 
     def __str__(self):
-        return f'({self.name}, {self.salary}, {self.area}, {self.url})'
+        return f'{self.name}, {self.salary}, {self.area}, {self.url}'
 
     def __repr__(self):
         data = {x: getattr(self, x) for x in self.__dict__ if not x.startswith('__')}
@@ -48,7 +48,7 @@ class Vacancy:
             return [0, 0]
 
     @classmethod
-    def parse_from_hh(cls, json_text: dict) -> list:
+    def parse_from_hh(cls, json_text: [dict]) -> list:
         list_ = []
         for x in json_text:
             list_.append(
