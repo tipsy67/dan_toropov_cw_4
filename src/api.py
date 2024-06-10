@@ -46,7 +46,7 @@ class Currency:
         Currency.currency_rate = requests.get(self.user_url).json()
 
     @classmethod
-    def get_rate(cls, currency):
+    def get_rate(cls, currency) -> float | int:
         currency = currency.lower()
         if currency == 'byr':
             currency = 'byn'

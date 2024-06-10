@@ -3,30 +3,8 @@ from src.exceptions import ExitException
 from src.filesaver import JSONSaver
 from src.interactive import UserQuery
 from src.settings import PATH_TO_JSON, URL_CURRENCY
+from src.utils import filter_vacancies_by_words, filter_vacancies_by_salary
 from src.vacancies import Vacancy
-
-
-def filter_vacancies_by_words(list_vacancies, new_user_query):
-    new_list_vacancies = []
-    for vacancy in list_vacancies:
-        for filter_word in new_user_query.filter_words:
-            if filter_word in vacancy.search_str:
-                new_list_vacancies.append(vacancy)
-                break
-
-    return new_list_vacancies
-
-
-def filter_vacancies_by_salary(list_vacancies, new_user_query):
-    new_list_vacancies = []
-    min_salary = int(new_user_query.salary_range[0])
-    max_salary = int(new_user_query.salary_range[1])
-    for vacancy in list_vacancies:
-        if min_salary <= vacancy.salary[0] <= max_salary or \
-                min_salary <= vacancy.salary[1] <= max_salary:
-            new_list_vacancies.append(vacancy)
-
-    return new_list_vacancies
 
 
 def user_interaction() -> None:
@@ -40,6 +18,8 @@ def user_interaction() -> None:
 
     new_user_query = UserQuery()
     UserQuery.remember_query(new_user_query)
+
+    print(new_user_query.__dict__)
 
     print("Немного подождите, идет загрузка...")
     hh_api = HeadHunterAPI()
