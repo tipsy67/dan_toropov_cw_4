@@ -6,6 +6,8 @@ class Vacancy:
     """
     Класс описывающий вакансию
     """
+    data_frame: dict
+
     def __init__(self, **kwargs):
         self.name = kwargs.get('name')
         self.salary = kwargs.get('salary')
@@ -105,9 +107,9 @@ class Vacancy:
 
         return dict_
 
-    @staticmethod
-    def vacancies_to_data_frame(list_vacancies: list) -> dict:
-        data_frame = {
+    @classmethod
+    def clear_data_frame(cls):
+        cls.data_frame = {
            'name': [],
            'salary_min': [],
            'salary_max': [],
@@ -118,16 +120,16 @@ class Vacancy:
            'experience': [],
            'schedule': [],
         }
-        for vacancy in list_vacancies:
-            print(vacancy)
-            data_frame['name'].append(vacancy.name)
-            data_frame['salary_min'].append(vacancy.salary[0])
-            data_frame['salary_max'].append(vacancy.salary[1])
-            data_frame['area'].append(vacancy.area)
-            data_frame['url'].append(vacancy.url)
-            data_frame['description'].append(vacancy.description)
-            data_frame['employment'].append(vacancy.employment)
-            data_frame['experience'].append(vacancy.experience)
-            data_frame['schedule'].append(vacancy.schedule)
 
-        return data_frame
+    @classmethod
+    def vacancy_to_data_frame(cls, obj):
+        cls.data_frame['name'].append(obj.name)
+        cls.data_frame['salary_min'].append(obj.salary[0])
+        cls.data_frame['salary_max'].append(obj.salary[1])
+        cls.data_frame['area'].append(obj.area)
+        cls.data_frame['url'].append(obj.url)
+        cls.data_frame['description'].append(obj.description)
+        cls.data_frame['employment'].append(obj.employment)
+        cls.data_frame['experience'].append(obj.experience)
+        cls.data_frame['schedule'].append(obj.schedule)
+
