@@ -2,6 +2,9 @@ from src.api import Currency
 
 
 class Vacancy:
+    """
+    Класс для хранения необходимо полей, описывающих вакансию
+    """
     def __init__(self, **kwargs):
         self.name = kwargs.get('name')
         self.salary = kwargs.get('salary')
@@ -21,6 +24,11 @@ class Vacancy:
         return f'{self.__class__.__name__}({data})'
 
     def __lt__(self, other):
+        """
+        Сравним две вакансии по средней от вилки зарплат
+        :param other:
+        :return:
+        """
         left_obj = self.salary[:]
         right_obj = other.salary[:]
         for salary in [left_obj, right_obj]:
@@ -30,10 +38,19 @@ class Vacancy:
 
     @property
     def search_str(self):
+        """
+        Строка для орагнизации поиска по дополнительным ключевым словам
+        :return:
+        """
         return f'{self.area} {self.description}'.lower()
 
     @classmethod
     def get_salary(cls, data) -> list:
+        """
+        Переведем зарплату в валюте по текущему курсу
+        :param data:
+        :return:
+        """
         if data is not None:
             if data['currency'] is not None and data['currency'] != 'RUR':
                 rate = Currency.get_rate(data['currency'])
@@ -49,6 +66,11 @@ class Vacancy:
 
     @classmethod
     def parse_from_hh(cls, json_text: [dict]) -> list:
+        """
+        Создание списка вакансий с необходимыми полями из JSON файла
+        :param json_text:
+        :return:
+        """
         list_ = []
         for x in json_text:
             list_.append(
@@ -69,6 +91,11 @@ class Vacancy:
 
     @staticmethod
     def vacancy_to_json(obj) -> dict:
+        """
+        Правило для сериализации объектов класса в JSON
+        :param obj:
+        :return:
+        """
         dict_ = {}
         for x in obj.__dict__:
             if not x.startswith('__'):

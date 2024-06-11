@@ -6,6 +6,9 @@ from src.vacancies import Vacancy
 
 
 class MainSaver(ABC):
+    """
+    Для записи списка вакансий в файл
+    """
     __slots__ = ['__filepath', '__mode_open', '__file', '__method']
 
     @abstractmethod
@@ -23,6 +26,9 @@ class MainSaver(ABC):
 
 
 class JSONSaver(MainSaver):
+    """
+    Для записи списка вакансий в JSON файл
+    """
     def __init__(self, filepath: str, mode_open: str, method):
         self.__filepath = filepath
         self.__mode_open = mode_open
@@ -36,6 +42,11 @@ class JSONSaver(MainSaver):
         self.__file.close()
 
     def write_vacancies(self, list_obj):
+        """
+        Для записи списка вакансий в файл
+        :param list_obj:
+        :return:
+        """
         json_string = json.dumps(list_obj, default=self.__method, ensure_ascii=False)
         # json_string = json_string.replace('"', "'")
         for x in TAGS_FOR_REMOVE:
@@ -45,6 +56,10 @@ class JSONSaver(MainSaver):
         json.dump(json_string, self.__file, ensure_ascii=False)
 
     def load_vacancies(self) -> list:
+        """
+        Для загрузки списка вакансий из файла
+        :return:
+        """
         self.__file.seek(0)
         data = json.load(self.__file)
         data = json.loads(data)
@@ -52,4 +67,8 @@ class JSONSaver(MainSaver):
         return data
 
     def delete_all(self):
+        """
+        Для очистки содержимого файла
+        :return:
+        """
         self.__file.truncate(0)

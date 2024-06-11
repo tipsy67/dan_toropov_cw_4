@@ -7,8 +7,8 @@ from src.settings import VACANCY_SEARCH_FIELDS, VACANCY_SEARCH_PER_PAGE, VACANCY
 
 class MainAPI(ABC):
     """
-    Родительский абстрактный метод, обязывающий создавать
-    метод для получения JSON с определенным именем
+    Обяжем создавать метод со дним названием для получения JSON
+    из разных ресурсов
     """
 
     @abstractmethod
@@ -17,7 +17,9 @@ class MainAPI(ABC):
 
 
 class HeadHunterAPI(MainAPI):
-
+    """
+    Класс для получения списка вакансий с ресурса НН
+    """
     def __init__(self):
         self.url = 'https://api.hh.ru/vacancies'
         self.headers = {'User-Agent': 'HH-User-Agent'}
@@ -25,6 +27,14 @@ class HeadHunterAPI(MainAPI):
         self.vacancies = []
 
     def load_vacancies(self, user_query: UserQuery):
+        """
+        Получаем список вакансий в виде словаря
+        :param user_query: пользовательский запрос
+        'text_query' - текст запроса
+        'search_fields' - 1 по названию вакансии
+                        - 2 по названию вакансии и описанию
+        :return:
+        """
         self.params['text'] = user_query.text_query
         self.params['search_field'] = VACANCY_SEARCH_FIELDS[user_query.search_fields]
         while self.params.get('page') != VACANCY_SEARCH_PAGE:
@@ -36,6 +46,9 @@ class HeadHunterAPI(MainAPI):
 
 
 class Currency:
+    """
+    Для получения курса валют по заданной ссылке на JSON файл
+    """
     __slots__ = ['user_url']
     currency_rate = {}
 
@@ -47,6 +60,11 @@ class Currency:
 
     @classmethod
     def get_rate(cls, currency) -> float | int:
+        """
+        Вернем коэффициент отношения заданной валюты к рублю
+        :param currency: трехбуквенный валютный код
+        :return:
+        """
         currency = currency.lower()
         if currency == 'byr':
             currency = 'byn'
