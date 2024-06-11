@@ -2,6 +2,7 @@ from pathlib import Path
 
 PATH = Path(__file__).parent.parent
 PATH_TO_JSON = PATH.joinpath('data', 'vacancies.json')
+PATH_TO_EXCEL = PATH.joinpath('data', 'report.xlsx')
 
 URL_CURRENCY = 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/rub.json'
 

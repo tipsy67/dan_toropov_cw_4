@@ -36,7 +36,8 @@ def filter_vacancies_by_salary(list_vacancies: [Vacancy], new_user_query: UserQu
     for vacancy in list_vacancies:
         if min_salary <= vacancy.salary[0] <= max_salary or \
                 min_salary <= vacancy.salary[1] <= max_salary or \
-                (vacancy.salary[0] < min_salary and vacancy.salary[1] > max_salary):
+                (vacancy.salary[0] < min_salary and vacancy.salary[1] > max_salary and vacancy.salary[0]):
             new_list_vacancies.append(vacancy)
 
     return new_list_vacancies
+

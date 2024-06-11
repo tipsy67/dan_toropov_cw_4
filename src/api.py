@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import requests
 
 from src.interactive import UserQuery
-from src.settings import VACANCY_SEARCH_FIELDS, VACANCY_SEARCH_PER_PAGE, VACANCY_SEARCH_PAGE
+from src.settings import VACANCY_SEARCH_FIELDS, VACANCY_SEARCH_PER_PAGE, VACANCY_SEARCH_PAGE, TAGS_FOR_REMOVE
 
 
 class MainAPI(ABC):

@@ -55,7 +55,7 @@ def test_user_query():
     user_query = UserQuery.__new__(UserQuery)
     print(user_query.__dict__)
     user_query._UserQuery__text_query = 'java'
-    user_query._UserQuery__search_fields = ['1']
+    user_query._UserQuery__search_fields = '1'
     user_query._UserQuery__top_n = '1'
     user_query._UserQuery__filter_words = ['flask']
     user_query._UserQuery__salary_range = ['100000', '150000']

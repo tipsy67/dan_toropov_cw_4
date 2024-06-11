@@ -49,9 +49,6 @@ class JSONSaver(MainSaver):
         """
         json_string = json.dumps(list_obj, default=self.__method, ensure_ascii=False)
         # json_string = json_string.replace('"', "'")
-        for x in TAGS_FOR_REMOVE:
-            json_string = json_string.replace(x, '')
-
         self.__file.seek(0, 2)
         json.dump(json_string, self.__file, ensure_ascii=False)
 

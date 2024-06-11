@@ -1,9 +1,10 @@
 from src.api import Currency
+from src.settings import TAGS_FOR_REMOVE
 
 
 class Vacancy:
     """
-    Класс для хранения необходимо полей, описывающих вакансию
+    Класс описывающий вакансию
     """
     def __init__(self, **kwargs):
         self.name = kwargs.get('name')
@@ -73,20 +74,21 @@ class Vacancy:
         """
         list_ = []
         for x in json_text:
-            list_.append(
-                cls(
-                    name=x['name'],
-                    salary=cls.get_salary(x['salary']),
-                    # "from": 249999, "to": 250000, "currency": "KZT"
-                    area=x['area']['name'],
-                    url=x['alternate_url'],
-                    employment=x['employment']['name'],
-                    experience=x['experience']['name'],
-                    schedule=x['schedule']['name'],
-                    description=(x['snippet']['requirement'] if x['snippet']['requirement'] is not None else '') +
-                                (x['snippet']['responsibility'] if x['snippet']['responsibility'] is not None else '')
-                )
+            new_vacancy = cls(
+                name=x['name'],
+                salary=cls.get_salary(x['salary']),
+                # "from": 249999, "to": 250000, "currency": "KZT"
+                area=x['area']['name'],
+                url=x['alternate_url'],
+                employment=x['employment']['name'],
+                experience=x['experience']['name'],
+                schedule=x['schedule']['name'],
+                description=(x['snippet']['requirement'] if x['snippet']['requirement'] is not None else '') +
+                            (x['snippet']['responsibility'] if x['snippet']['responsibility'] is not None else '')
             )
+            for element in TAGS_FOR_REMOVE:
+                new_vacancy.description = new_vacancy.description.replace(element, '')
+            list_.append(new_vacancy)
         return list_
 
     @staticmethod
@@ -102,3 +104,30 @@ class Vacancy:
                 dict_[x] = getattr(obj, x)
 
         return dict_
+
+    @staticmethod
+    def vacancies_to_data_frame(list_vacancies: list) -> dict:
+        data_frame = {
+           'name': [],
+           'salary_min': [],
+           'salary_max': [],
+           'area': [],
+           'url': [],
+           'description': [],
+           'employment': [],
+           'experience': [],
+           'schedule': [],
+        }
+        for vacancy in list_vacancies:
+            print(vacancy)
+            data_frame['name'].append(vacancy.name)
+            data_frame['salary_min'].append(vacancy.salary[0])
+            data_frame['salary_max'].append(vacancy.salary[1])
+            data_frame['area'].append(vacancy.area)
+            data_frame['url'].append(vacancy.url)
+            data_frame['description'].append(vacancy.description)
+            data_frame['employment'].append(vacancy.employment)
+            data_frame['experience'].append(vacancy.experience)
+            data_frame['schedule'].append(vacancy.schedule)
+
+        return data_frame
