@@ -60,29 +60,34 @@ def test_input_search_fields(test_user_query):
     set_keyboard_input(['java', '7', '2'])
     assert UserQuery.input_search_fields(test_user_query) == '2'
 
+
 def test_input_is_rewrite(test_user_query):
     set_keyboard_input(['java', '7', '2'])
     assert UserQuery.input_is_rewrite(test_user_query) == '2'
+
 
 def test_input_top_n(test_user_query):
     set_keyboard_input(['java', '7', '2'])
     assert UserQuery.input_top_n(test_user_query) == '7'
 
+
 def test_input_filter_words(test_user_query):
     set_keyboard_input(['java lava', '7', '2'])
     assert UserQuery.input_filter_words(test_user_query) == ['java', 'lava']
+
 
 def test_input_salary_range(test_user_query):
     set_keyboard_input(['java lava', '7', '1- 100'])
     assert UserQuery.input_salary_range(test_user_query) == ['1', '100']
 
+
 def test_user_query_class():
     set_keyboard_input(['java', '1', '10', 'python', '1-100', '2'])
     test_query = UserQuery()
 
-    assert test_query._UserQuery__text_query == 'java'
-    assert test_query._UserQuery__search_fields == '1'
-    assert test_query._UserQuery__top_n == '10'
-    assert test_query._UserQuery__filter_words == ['python']
-    assert test_query._UserQuery__salary_range == ['1', '100']
-    assert test_query._UserQuery__is_rewrite == '2'
+    assert test_query.text_query == 'java'
+    assert test_query.search_fields == '1'
+    assert test_query.top_n == '10'
+    assert test_query.filter_words == ['python']
+    assert test_query.salary_range == ['1', '100']
+    assert test_query.is_rewrite == '2'

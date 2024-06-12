@@ -48,7 +48,7 @@ def user_interaction() -> None:
     df.to_excel(PATH_TO_EXCEL)
 
     print(f"\nРезультат сохранен в файл {PATH_TO_EXCEL}")
-    print("-"*30)
+    print("-" * 30)
 
 
 if __name__ == '__main__':

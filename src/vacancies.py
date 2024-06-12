@@ -5,6 +5,7 @@ from src.settings import TAGS_FOR_REMOVE
 class Vacancy:
     """
     Класс описывающий вакансию
+    data_frame - фрейм для записи в excel файл
     """
     data_frame: dict
 
@@ -40,7 +41,7 @@ class Vacancy:
         return sum(left_obj) / 2 < sum(right_obj) / 2
 
     @property
-    def search_str(self):
+    def search_str(self) -> str:
         """
         Строка для орагнизации поиска по дополнительным ключевым словам
         :return:
@@ -108,7 +109,11 @@ class Vacancy:
         return dict_
 
     @classmethod
-    def clear_data_frame(cls):
+    def clear_data_frame(cls) -> None:
+        """
+        Очистим data frame
+        :return:
+        """
         cls.data_frame = {
            'name': [],
            'salary_min': [],
@@ -122,7 +127,13 @@ class Vacancy:
         }
 
     @classmethod
-    def vacancy_to_data_frame(cls, obj):
+    def vacancy_to_data_frame(cls, obj) -> None:
+        """
+        Преобразуем данные экземпляра класса
+        в данные для data frame и добавми их
+        :param obj: экземпляр класса
+        :return:
+        """
         cls.data_frame['name'].append(obj.name)
         cls.data_frame['salary_min'].append(obj.salary[0])
         cls.data_frame['salary_max'].append(obj.salary[1])
@@ -132,4 +143,3 @@ class Vacancy:
         cls.data_frame['employment'].append(obj.employment)
         cls.data_frame['experience'].append(obj.experience)
         cls.data_frame['schedule'].append(obj.schedule)
-

@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
+
 import requests
 
 from src.interactive import UserQuery
-from src.settings import VACANCY_SEARCH_FIELDS, VACANCY_SEARCH_PER_PAGE, VACANCY_SEARCH_PAGE, TAGS_FOR_REMOVE
+from src.settings import VACANCY_SEARCH_FIELDS, VACANCY_SEARCH_PER_PAGE, VACANCY_SEARCH_PAGE
 
 
 class MainAPI(ABC):
@@ -69,4 +70,3 @@ class Currency:
         if currency == 'byr':
             currency = 'byn'
         return cls.currency_rate['rub'].get(currency, 1)
-
