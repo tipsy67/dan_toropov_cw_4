@@ -39,11 +39,16 @@ def user_interaction() -> None:
     upper_cut_limit = int(new_user_query.top_n)
     list_vacancies = list_vacancies[:upper_cut_limit]
 
-    df = pd.DataFrame(Vacancy.vacancies_to_data_frame(list_vacancies))
+    Vacancy.clear_data_frame()
+    for vacancy in list_vacancies:
+        print(vacancy)
+        Vacancy.vacancy_to_data_frame(vacancy)
+
+    df = pd.DataFrame(Vacancy.data_frame)
     df.to_excel(PATH_TO_EXCEL)
 
     print(f"\nРезультат сохранен в файл {PATH_TO_EXCEL}")
-    print("-"*30)
+    print("-" * 30)
 
 
 if __name__ == '__main__':

@@ -1,7 +1,6 @@
 import json
 from abc import ABC, abstractmethod
 
-from src.settings import TAGS_FOR_REMOVE
 from src.vacancies import Vacancy
 
 

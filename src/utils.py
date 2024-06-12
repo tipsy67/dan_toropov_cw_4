@@ -40,4 +40,3 @@ def filter_vacancies_by_salary(list_vacancies: [Vacancy], new_user_query: UserQu
             new_list_vacancies.append(vacancy)
 
     return new_list_vacancies
-
