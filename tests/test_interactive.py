@@ -82,8 +82,10 @@ def test_input_salary_range(test_user_query):
 
 
 def test_user_query_class():
-    set_keyboard_input(['java', '1', '10', 'python', '1-100', '2'])
+    set_keyboard_input(['java', '1', '2'])
     test_query = UserQuery()
+    set_keyboard_input((['10', 'python', '1-100']))
+    UserQuery.get_data_for_details(test_query)
 
     assert test_query.text_query == 'java'
     assert test_query.search_fields == '1'

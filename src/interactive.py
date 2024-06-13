@@ -21,11 +21,18 @@ class UserQuery:
         self.__text_query = self.input_processing("Введите текст запроса для поиска вакансии:",
                                                   'text_query')
         self.__search_fields = self.input_search_fields()
-        print("Теперь введите данные для детального поиска:")
+        self.__is_rewrite = self.input_is_rewrite()
+        self.__top_n = 10
+        self.__filter_words = []
+        self.__salary_range = [1-1000000]
+
+    def get_data_for_details(self):
+        print("Теперь введите данные для детального поиска по найденным вакансиям:")
+        print("Для возврата в главное меню в любой момент введите: exit")
         self.__top_n = self.input_top_n()
         self.__filter_words = self.input_filter_words()
         self.__salary_range = self.input_salary_range()
-        self.__is_rewrite = self.input_is_rewrite()
+
 
     @property
     def text_query(self):
