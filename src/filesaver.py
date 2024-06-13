@@ -1,5 +1,7 @@
 import json
+import os
 from abc import ABC, abstractmethod
+from pathlib import PosixPath
 
 from src.vacancies import Vacancy
 
@@ -28,7 +30,7 @@ class JSONSaver(MainSaver):
     """
     Для записи списка вакансий в JSON файл
     """
-    def __init__(self, filepath: str, mode_open: str, method):
+    def __init__(self, filepath: PosixPath, mode_open: str, method):
         self.__filepath = filepath
         self.__mode_open = mode_open
         self.__method = method
@@ -68,3 +70,8 @@ class JSONSaver(MainSaver):
         :return:
         """
         self.__file.truncate(0)
+
+    def is_file_not_empty(self):
+        self.__file.seek(0)  # Unecessary but important if file was manipulated before reading
+
+        return not self.__file.read()
